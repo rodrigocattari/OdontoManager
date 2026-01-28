@@ -1,0 +1,53 @@
+spring:
+  profiles:
+    active: "@spring.profile@"
+  jackson:
+    time-zone: America/Sao_Paulo
+    default-property-inclusion: NON_ABSENT
+    deserialization:
+      fail-on-unknown-properties: true
+      fail-on-ignored-properties: true
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:mysql://localhost:3306/odonto_db
+    username: root
+    password: root
+  web:
+    locale: pt_BR
+    resources:
+      add-mappings: true
+  main:
+    banner-mode: "off"
+springdoc:
+  cache:
+    disabled: true
+  swagger-ui:
+    use-root-path: true
+    operationsSorter: method
+    tagsSorter: alpha
+    doc-expansion: none
+app:
+  version: "@project.version@"
+  name: "@project.name@"
+  description: "@project.description@"
+server:
+  servlet:
+    context-path: /odontomanager-api
+---
+spring:
+  config:
+    activate:
+      on-profile: prd
+---
+spring:
+  config:
+    activate:
+      on-profile: sta
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
