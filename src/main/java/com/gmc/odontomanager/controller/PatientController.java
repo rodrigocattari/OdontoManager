@@ -3,8 +3,8 @@ package com.gmc.odontomanager.controller;
 import com.gmc.odontomanager.controller.swagger.PatientControllerSwagger;
 import com.gmc.odontomanager.entity.Patient;
 import com.gmc.odontomanager.entity.dtos.PatientDTO;
-import com.gmc.odontomanager.exeption.ResourceNotFoundException;
 import com.gmc.odontomanager.repository.PatientRepository;
+import com.gmc.odontomanager.service.PatientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,51 +17,35 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/patient")
 public class PatientController implements PatientControllerSwagger {
 
-    private final PatientRepository patientRepository;
-    private final ModelMapper modelMapper;
+    private final PatientService patientService;
 
-    public PatientController(PatientRepository patientRepository, ModelMapper modelMapper) {
-        this.patientRepository = patientRepository;
-        this.modelMapper = modelMapper;
+    public PatientController(PatientRepository patientRepository, PatientService patientService, ModelMapper modelMapper) {
+        this.patientService = patientService;
     }
 
     @GetMapping
     public ResponseEntity<Page<Patient>> findAllPatient(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-
-        Page<Patient> patients = patientRepository.findAll(pageable);
-        return ResponseEntity.ok(patients);
+        return patientService.findAllPatient(pageable);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Patient> findPatientById(@PathVariable Long id) {
-        return patientRepository.findById(id)
-                .map(patient -> ResponseEntity.ok().body(patient))
-                .orElse(ResponseEntity.notFound().build());
+        return patientService.findPatientById(id);
     }
 
     @PostMapping
     public Patient createPatient(@RequestBody Patient patient) {
-        return patientRepository.save(patient);
+        return patientService.createPatient(patient);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Patient> updatePatient(@PathVariable Long id, @RequestBody PatientDTO patientDto) {
-        Patient patient = patientRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com id: " + id));
-
-        modelMapper.map(patientDto, patient);
-        Patient updated = patientRepository.save(patient);
-
-        return ResponseEntity.ok(updated);
+        return patientService.updatePatient(id, patientDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
-        return patientRepository.findById(id)
-                .map(patient -> {
-                    patientRepository.delete(patient);
-                    return ResponseEntity.noContent().<Void>build();
-                }).orElse(ResponseEntity.notFound().build());
+                    return patientService.deletePatient(id);
     }
 }
