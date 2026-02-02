@@ -6,17 +6,13 @@ import com.gmc.odontomanager.exeption.ResourceNotFoundException;
 import com.gmc.odontomanager.repository.PatientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-
 @Service
 public class PatientService {
-
+//teste commit
     private final PatientRepository patientRepository;
 
     public PatientService(PatientRepository patientRepository) {
