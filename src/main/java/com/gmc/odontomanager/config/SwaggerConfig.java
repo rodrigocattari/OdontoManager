@@ -14,13 +14,13 @@ import java.util.Date;
 @Configuration
 public class SwaggerConfig {
 
-    @Value("${app.name}")
+    @Value("${app.name:OdontoManager}")
     private String appName;
 
-    @Value("${app.version}")
+    @Value("${app.version:1.0.0}")
     private String appVersion;
 
-    @Value("${app.description}")
+    @Value("${app.description:API OdontoManager}")
     private String appDescription;
 
     @Bean

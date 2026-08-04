@@ -9,7 +9,6 @@ public class ModelMapperConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-        // Configuração crucial para o seu caso: ignora campos nulos no mapeamento
         modelMapper.getConfiguration().setSkipNullEnabled(true);
         return modelMapper;
     }

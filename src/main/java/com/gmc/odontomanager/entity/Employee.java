@@ -7,15 +7,18 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "patient")
+@Table(name = "employee")
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Patient extends User {
+public class Employee extends User {
 
-    @Column(name = "address", length = 255)
-    private String address;
+    @Column(name = "cro", length = 50)
+    private String cro;
+
+    @Column(name = "specialty", length = 100)
+    private String specialty;
 }
