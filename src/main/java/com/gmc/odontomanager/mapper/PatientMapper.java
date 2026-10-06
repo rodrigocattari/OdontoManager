@@ -5,13 +5,21 @@ import com.gmc.odontomanager.entity.dtos.PatientRequestDTO;
 import com.gmc.odontomanager.entity.dtos.PatientResponseDTO;
 import com.gmc.odontomanager.entity.dtos.PatientSummaryDTO;
 import com.gmc.odontomanager.entity.enums.Role;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
 public class PatientMapper {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public PatientMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public Patient toEntity(PatientRequestDTO dto) {
         if (dto == null) {
@@ -27,7 +35,7 @@ public class PatientMapper {
                 .phone(dto.getPhone())
                 .cpf(dto.getCpf())
                 .birthDate(dto.getBirthDate())
-                .password(dto.getPassword() != null && !dto.getPassword().isBlank() ? dto.getPassword() : "123456")
+                .password(encodePassword(dto.getPassword()))
                 .address(dto.getAddress())
                 .roles(defaultRoles)
                 .build();
@@ -76,7 +84,11 @@ public class PatientMapper {
         if (dto.getPhone() != null) entity.setPhone(dto.getPhone());
         if (dto.getCpf() != null) entity.setCpf(dto.getCpf());
         if (dto.getBirthDate() != null) entity.setBirthDate(dto.getBirthDate());
-        if (dto.getPassword() != null && !dto.getPassword().isBlank()) entity.setPassword(dto.getPassword());
+        if (StringUtils.hasText(dto.getPassword())) entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         if (dto.getAddress() != null) entity.setAddress(dto.getAddress());
+    }
+
+    private String encodePassword(String rawPassword) {
+        return StringUtils.hasText(rawPassword) ? passwordEncoder.encode(rawPassword) : null;
     }
 }

@@ -5,13 +5,21 @@ import com.gmc.odontomanager.entity.dtos.EmployeeRequestDTO;
 import com.gmc.odontomanager.entity.dtos.EmployeeResponseDTO;
 import com.gmc.odontomanager.entity.dtos.EmployeeSummaryDTO;
 import com.gmc.odontomanager.entity.enums.Role;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
 public class EmployeeMapper {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public EmployeeMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public Employee toEntity(EmployeeRequestDTO dto) {
         if (dto == null) {
@@ -27,7 +35,7 @@ public class EmployeeMapper {
                 .phone(dto.getPhone())
                 .cpf(dto.getCpf())
                 .birthDate(dto.getBirthDate())
-                .password(dto.getPassword() != null && !dto.getPassword().isBlank() ? dto.getPassword() : "123456")
+                .password(encodePassword(dto.getPassword()))
                 .cro(dto.getCro())
                 .specialty(dto.getSpecialty())
                 .roles(defaultRoles)
@@ -78,8 +86,12 @@ public class EmployeeMapper {
         if (dto.getPhone() != null) entity.setPhone(dto.getPhone());
         if (dto.getCpf() != null) entity.setCpf(dto.getCpf());
         if (dto.getBirthDate() != null) entity.setBirthDate(dto.getBirthDate());
-        if (dto.getPassword() != null && !dto.getPassword().isBlank()) entity.setPassword(dto.getPassword());
+        if (StringUtils.hasText(dto.getPassword())) entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         if (dto.getCro() != null) entity.setCro(dto.getCro());
         if (dto.getSpecialty() != null) entity.setSpecialty(dto.getSpecialty());
+    }
+
+    private String encodePassword(String rawPassword) {
+        return StringUtils.hasText(rawPassword) ? passwordEncoder.encode(rawPassword) : null;
     }
 }
