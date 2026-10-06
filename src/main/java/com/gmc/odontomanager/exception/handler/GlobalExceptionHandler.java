@@ -1,8 +1,8 @@
-package com.gmc.odontomanager.exeption.handler;
+package com.gmc.odontomanager.exception.handler;
 
-import com.gmc.odontomanager.exeption.ResourceNotFoundException;
-import com.gmc.odontomanager.exeption.StandardError;
-import com.gmc.odontomanager.exeption.ValidationError;
+import com.gmc.odontomanager.exception.ResourceNotFoundException;
+import com.gmc.odontomanager.exception.StandardError;
+import com.gmc.odontomanager.exception.ValidationError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

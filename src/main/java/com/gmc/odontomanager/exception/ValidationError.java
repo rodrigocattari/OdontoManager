@@ -1,4 +1,4 @@
-package com.gmc.odontomanager.exeption;
+package com.gmc.odontomanager.exception;
 
 import lombok.Getter;
 

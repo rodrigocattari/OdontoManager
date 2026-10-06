@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/disease")
+@RequestMapping("/api/diseases")
 public class DiseaseController implements DiseaseControllerSwagger {
 
     private final DiseaseService diseaseService;

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/anamnesis")
+@RequestMapping("/api/anamneses")
 public class AnamnesisController implements AnamnesisControllerSwagger {
 
     private final AnamnesisService anamnesisService;

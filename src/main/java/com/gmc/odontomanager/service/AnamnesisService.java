@@ -6,7 +6,7 @@ import com.gmc.odontomanager.entity.Employee;
 import com.gmc.odontomanager.entity.Patient;
 import com.gmc.odontomanager.entity.dtos.AnamnesisRequestDTO;
 import com.gmc.odontomanager.entity.dtos.AnamnesisResponseDTO;
-import com.gmc.odontomanager.exeption.ResourceNotFoundException;
+import com.gmc.odontomanager.exception.ResourceNotFoundException;
 import com.gmc.odontomanager.mapper.AnamnesisMapper;
 import com.gmc.odontomanager.repository.AnamnesisRepository;
 import com.gmc.odontomanager.repository.DiseaseRepository;

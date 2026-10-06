@@ -3,7 +3,7 @@ package com.gmc.odontomanager.service;
 import com.gmc.odontomanager.entity.Patient;
 import com.gmc.odontomanager.entity.dtos.PatientRequestDTO;
 import com.gmc.odontomanager.entity.dtos.PatientResponseDTO;
-import com.gmc.odontomanager.exeption.ResourceNotFoundException;
+import com.gmc.odontomanager.exception.ResourceNotFoundException;
 import com.gmc.odontomanager.mapper.PatientMapper;
 import com.gmc.odontomanager.repository.PatientRepository;
 import org.springframework.data.domain.Page;
